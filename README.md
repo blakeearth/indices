@@ -9,6 +9,8 @@
 * `indices` is built like a file system. Imagine that you're writing a site like you would with HTML, but write it with Markdown instead. Other than that, it just adds a self-indexing system.
   * For example, in the root directory of your website, you might have an `index.md` file as a homepage and an `about.md` file for personal details. When you run the binary on your website source, `index.md` will compile to `index.html` and include a navigation section that links to the personal details page (and any other pages in the directory). `about.md` will compile to `about/index.html` and include a note at the bottom of the page that links to the `index.html` of the directory.
   * For a more detailed example, see [my website source](https://github.com/blakeearth/blakeearth.github.io/tree/gh-pages).
+* The title of each page is the first line of the `.md` with anything except `a-z`, `A-Z`, ` `, `.` and `-` removed.
+* Use `\` at the end of Markdown lines to end the paragraph/force a line break.
 * With a binary, just run `indices <website source directory>`. Any files not ending in `.md` will be copied to the final static site.
 
 ## Build
@@ -18,6 +20,5 @@
 
 ## Notes
 * `indices` uses `blackfriday` and does NOT sanitize input! It will copy over HTML tags, scripts, etc.
-* Use `\` at the end of Markdown lines to end the paragraph/force a line break.
 * The HTML used to generate the static sites is in `indices.go`. If you want to change the appearance or something else about the sites `indices` generates, start there!
 * The code for this repository is sloppy! It's the first program I made with Go (I wanted to learn it), and it could definitely stand some refactoring.
