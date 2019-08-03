@@ -3,6 +3,8 @@
 * I couldn't find any other static-site generators that met my desire for simplicity. With `indices`, I can just drag my Markdown source to the binary and commit, and pages are simple and self-index. (For an example of a site made with `indices`, see [my website](https://blake.earth)).
 * I wanted a small project to help me learn Go.
 
+> Inspiration for the design and layout of pages comes from [jrl.ninja](https://jrl.ninja) and [schollz.com](https://schollz.com/blog/).
+
 ## Usage
 > `indices` has no customizability. If you want to make changes to its appearance, for example, you'll need to change the source and build a binary yourself, but this should not be a difficult process.
 
