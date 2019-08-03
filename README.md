@@ -21,4 +21,4 @@
 ## Notes
 * `indices` uses `blackfriday` and does NOT sanitize input! It will copy over HTML tags, scripts, etc.
 * The HTML used to generate the static sites is in `indices.go`. If you want to change the appearance or something else about the sites `indices` generates, start there!
-* The code for this repository is sloppy! It's the first program I made with Go (I wanted to learn it), and it could definitely stand some refactoring.
+* The code for this repository is sloppy! It's the first program I made with Go (I wanted to learn it), and it could definitely stand some refactoring. Here be dragons!
