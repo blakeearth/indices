@@ -135,7 +135,7 @@ func processFilesIn(dir string) {
 					pathWords := strings.Split(withoutTrailingSlash, "/")
 					parentPathWords := pathWords[:len(pathWords)-1]
 					parentVisiblePath := strings.Join(parentPathWords, "/") + "/"
-					indices[parentVisiblePath].NavItems[strings.TrimRight(relPath, ".md") + "/"] = title
+					indices[parentVisiblePath].NavItems[strings.TrimRight(relPath, "index.md")] = title
 				}
 			} else {
 				htmlPath = replaceSuffix(relPath, ".md", "/index.html")
@@ -190,7 +190,7 @@ func writeHtml(dir string) {
 	    margin: auto;
 	  }
 		img {
-			max-width: 500px;
+			max-width: 70%;
 		}
 		nav {
 			list-style-type: none;
@@ -241,7 +241,7 @@ func writeHtml(dir string) {
 			margin: auto;
 		}
 		img {
-			max-width: 500px;
+			max-width: 70%;
 		}
 		a {
 			text-decoration: none;
