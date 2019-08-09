@@ -18,6 +18,7 @@ type Index struct {
 	Title       string
 	Content     string
 	VisiblePath string
+	ParentPath  string
 	NavItems    map[string]string
 }
 
@@ -84,6 +85,7 @@ func processFilesIn(dir string) {
 	indices = make(map[string]*Index)
 	items = []Item{}
 	processFile := func(path string, info os.FileInfo, err error) error {
+		path = filepath.ToSlash(path)
 		if err != nil {
 			panic(err)
 		}
@@ -113,8 +115,10 @@ func processFilesIn(dir string) {
 				make(map[string]string, 0)}
 			indices[visiblePath] = &index
 			if visiblePath != "/" {
-				parentRelPath := filepath.Dir(filepath.Dir(visiblePath))
-				parentVisiblePath := filepath.ToSlash(parentRelPath)
+				withoutTrailingSlash := strings.TrimRight(visiblePath, "/")
+				pathWords := strings.Split(withoutTrailingSlash, "/")
+				parentPathWords := pathWords[:len(pathWords)-1]
+				parentVisiblePath := strings.Join(parentPathWords, "/") + "/"
 				indices[parentVisiblePath].NavItems[relPath + "/index.html"] = "Filed in " + visiblePath
 			}
 		} else if filepath.Ext(info.Name()) == ".md" {
@@ -128,8 +132,10 @@ func processFilesIn(dir string) {
 				indices[visiblePath].Content = html
 				indices[visiblePath].VisiblePath = visiblePath
 				if visiblePath != "/" {
-					parentRelPath := filepath.Dir(filepath.Dir(visiblePath))
-			  	parentVisiblePath := filepath.ToSlash(parentRelPath)
+					withoutTrailingSlash := strings.TrimRight(visiblePath, "/")
+					pathWords := strings.Split(withoutTrailingSlash, "/")
+					parentPathWords := pathWords[:len(pathWords)-1]
+					parentVisiblePath := strings.Join(parentPathWords, "/") + "/"
 					indices[parentVisiblePath].NavItems[htmlPath] = title
 				}
 			} else {
@@ -137,7 +143,9 @@ func processFilesIn(dir string) {
 				// make a new folder and index.html for clean URLs
 				err := os.Mkdir(strings.TrimRight(staticPath, ".md"), os.ModePerm)
 				if err != nil {
-					panic(err)
+					if !os.IsExist(err) {
+						panic(err)
+					}
 				}
 				item := Item{
 					htmlPath,
@@ -182,6 +190,9 @@ func writeHtml(dir string) {
 	    padding: 2ch;
 	    margin: auto;
 	  }
+		img {
+			max-width: 500px;
+		}
 		nav {
 			list-style-type: none;
 			padding: 1rem 0;
@@ -230,6 +241,9 @@ func writeHtml(dir string) {
 			padding: 2ch;
 			margin: auto;
 		}
+		img {
+			max-width: 500px;
+		}
 		a {
 			text-decoration: none;
 			outline: 0;
@@ -251,24 +265,6 @@ func writeHtml(dir string) {
 	</html>
 	`
 
-	for _, item := range items {
-		tmpl, err := template.New("item").Parse(itemHtml)
-		if err != nil {
-			panic(err)
-		}
-
-		writer, err := os.Create(dir+item.Path)
-		if err != nil {
-			panic(err)
-		}
-
-		err = tmpl.Execute(writer, item)
-		if err != nil {
-			panic(err)
-		}
-
-	}
-
 	for _, index := range indices {
 		tmpl, err := template.New("index").Parse(indexHtml)
 		if err != nil {
@@ -281,6 +277,24 @@ func writeHtml(dir string) {
 		}
 
 		err = tmpl.Execute(writer, index)
+		if err != nil {
+			panic(err)
+		}
+
+	}
+
+	for _, item := range items {
+		tmpl, err := template.New("item").Parse(itemHtml)
+		if err != nil {
+			panic(err)
+		}
+
+		writer, err := os.Create(dir+item.Path)
+		if err != nil {
+			panic(err)
+		}
+
+		err = tmpl.Execute(writer, item)
 		if err != nil {
 			panic(err)
 		}
