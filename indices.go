@@ -18,7 +18,6 @@ type Index struct {
 	Title       string
 	Content     string
 	VisiblePath string
-	ParentPath  string
 	NavItems    map[string]string
 }
 
@@ -119,7 +118,7 @@ func processFilesIn(dir string) {
 				pathWords := strings.Split(withoutTrailingSlash, "/")
 				parentPathWords := pathWords[:len(pathWords)-1]
 				parentVisiblePath := strings.Join(parentPathWords, "/") + "/"
-				indices[parentVisiblePath].NavItems[relPath + "/index.html"] = "Filed in " + visiblePath
+				indices[parentVisiblePath].NavItems[relPath + "/"] = "Filed in " + visiblePath
 			}
 		} else if filepath.Ext(info.Name()) == ".md" {
 			// this is a markdown file; send it off
@@ -136,7 +135,7 @@ func processFilesIn(dir string) {
 					pathWords := strings.Split(withoutTrailingSlash, "/")
 					parentPathWords := pathWords[:len(pathWords)-1]
 					parentVisiblePath := strings.Join(parentPathWords, "/") + "/"
-					indices[parentVisiblePath].NavItems[htmlPath] = title
+					indices[parentVisiblePath].NavItems[strings.TrimRight(relPath, ".md") + "/"] = title
 				}
 			} else {
 				htmlPath = replaceSuffix(relPath, ".md", "/index.html")
@@ -153,7 +152,7 @@ func processFilesIn(dir string) {
 					html,
 					visiblePath}
 				items = append(items, item)
-			  indices[visiblePath].NavItems[htmlPath] = item.Title
+			  indices[visiblePath].NavItems[strings.TrimRight(relPath, ".md") + "/"] = item.Title
 			}
 			if err != nil {
 				panic(err)
