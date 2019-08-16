@@ -7,8 +7,8 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"strings"
 	"regexp"
+	"strings"
 	// uses text/template to allow for scripts or HTML in .md files
 	"text/template"
 )
@@ -118,7 +118,7 @@ func processFilesIn(dir string) {
 				pathWords := strings.Split(withoutTrailingSlash, "/")
 				parentPathWords := pathWords[:len(pathWords)-1]
 				parentVisiblePath := strings.Join(parentPathWords, "/") + "/"
-				indices[parentVisiblePath].NavItems[relPath + "/"] = "Filed in " + visiblePath
+				indices[parentVisiblePath].NavItems[relPath+"/"] = "Filed in " + visiblePath
 			}
 		} else if filepath.Ext(info.Name()) == ".md" {
 			// this is a markdown file; send it off
@@ -152,7 +152,7 @@ func processFilesIn(dir string) {
 					html,
 					visiblePath}
 				items = append(items, item)
-			  indices[visiblePath].NavItems[strings.TrimRight(relPath, ".md") + "/"] = item.Title
+				indices[visiblePath].NavItems[strings.TrimRight(relPath, ".md")+"/"] = item.Title
 			}
 			if err != nil {
 				panic(err)
@@ -176,40 +176,40 @@ func writeHtml(dir string) {
 	<!DOCTYPE html>
 	<html lang=en>
 	<head>
-	  <title>{{.Title}}</title>
-	  <meta name="viewport" content="width=device-width">
-	  <link rel=icon href=data:,>
-	  <style>
-	  body {
-	    font-family: Verdana, Arial, sans-serif;
-	    color: #3b3837;
-	  }
-	  main {
-	    max-width: 70ch;
-	    padding: 2ch;
-	    margin: auto;
-	  }
+		<title>{{.Title}}</title>
+		<meta name="viewport" content="width=device-width">
+		<link rel=icon href=data:,>
+		<style>
+		body {
+			font-family: Verdana, Arial, sans-serif;
+			color: #3b3837;
+		}
+		main {
+			max-width: 70ch;
+			padding: 2ch;
+			margin: auto;
+		}
 		img {
 			display: block;
-		  margin-left: auto;
-		  margin-right: auto;
+			margin-left: auto;
+			margin-right: auto;
 			max-width: 70%;
 		}
 		nav {
 			list-style-type: none;
 			padding: 1rem 0;
 		}
-	  a {
-	    text-decoration: none;
-	    outline: 0;
-	  }
-	  a:hover {
-	    text-decoration: underline;
-	  }
-	  ::selection {
-	    background-color: #e5e5e5;
-	  }
-	  </style>
+		a {
+			text-decoration: none;
+			outline: 0;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		::selection {
+			background-color: #e5e5e5;
+		}
+		</style>
 	</head>
 		<body>
 			<main>
@@ -245,8 +245,8 @@ func writeHtml(dir string) {
 		}
 		img {
 			display: block;
-		  margin-left: auto;
-		  margin-right: auto;
+			margin-left: auto;
+			margin-right: auto;
 			max-width: 70%;
 		}
 		a {
@@ -276,7 +276,7 @@ func writeHtml(dir string) {
 			panic(err)
 		}
 
-		writer, err := os.Create(dir+index.Path)
+		writer, err := os.Create(dir + index.Path)
 		if err != nil {
 			panic(err)
 		}
@@ -294,7 +294,7 @@ func writeHtml(dir string) {
 			panic(err)
 		}
 
-		writer, err := os.Create(dir+item.Path)
+		writer, err := os.Create(dir + item.Path)
 		if err != nil {
 			panic(err)
 		}
