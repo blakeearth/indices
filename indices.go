@@ -190,6 +190,9 @@ func writeHtml(dir string) {
 	    margin: auto;
 	  }
 		img {
+			display: block;
+		  margin-left: auto;
+		  margin-right: auto;
 			max-width: 70%;
 		}
 		nav {
@@ -241,6 +244,9 @@ func writeHtml(dir string) {
 			margin: auto;
 		}
 		img {
+			display: block;
+		  margin-left: auto;
+		  margin-right: auto;
 			max-width: 70%;
 		}
 		a {
