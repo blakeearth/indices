@@ -182,7 +182,7 @@ func writeHtml(dir string) {
 		<style>
 		body {
 			font-family: Verdana, Arial, sans-serif;
-			font-size: 2ch;
+			font-size: 28px;
 			color: #3b3837;
 		}
 		main {
@@ -237,7 +237,7 @@ func writeHtml(dir string) {
 		<style>
 		body {
 			font-family: Verdana, Arial, sans-serif;
-			font-size: 2ch;
+			font-size: 28px;
 			color: #3b3837;
 		}
 		main {
