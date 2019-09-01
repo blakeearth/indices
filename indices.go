@@ -181,6 +181,7 @@ func writeHtml(dir string) {
 		<link rel=icon href=data:,>
 		<style>
 		body {
+			word-wrap: break-word;
 			font-family: Verdana, Arial, sans-serif;
 			font-size: 1.5em;
 			color: #3b3837;
@@ -236,6 +237,7 @@ func writeHtml(dir string) {
 		<link rel=icon href=data:,>
 		<style>
 		body {
+			word-wrap: break-word;
 			font-family: Verdana, Arial, sans-serif;
 			font-size: 1.5em;
 			color: #3b3837;
